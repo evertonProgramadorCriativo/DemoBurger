@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import Burger from '../../components/Burger/Burger'
-import BuildControls from '../../components/Burger/BuildControls/--Build_Control--'
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
 import Modal from '../../components/UI/Modal/Modal'
 import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary'
 
@@ -37,7 +37,7 @@ class BurgerBuilder extends Component {
 
     addIngredientHandler = ( type) => {
         const oldCount = this.state.ingredients[type];
-        const updateCount = oldCount + 1;
+        const updatedCount = oldCount + 1;
         const updatedIngredients = {
             ...this.state.ingredients
         };
@@ -45,8 +45,8 @@ class BurgerBuilder extends Component {
         updatedIngredients[type] = updatedCount;
         const priceAddition =   INGREDIENT_PRICES[type];
         const oldPrice = this.state.totalPrice;
-        const newPrice = oldPrice + pricreAddition;
-        this.setState({ totalPrice: newPrice, ingredients: updatedIngredients});
+        const newPrice = oldPrice + priceAddition;
+        this.setState( { totalPrice: newPrice, ingredients: updatedIngredients } );
         this.updatePurchaseState(updatedIngredients);
     }
 
@@ -63,7 +63,7 @@ removeIngredientHandler = ( type ) => {
     updatedIngredients[type] = updatedCount;
     const priceDedution = INGREDIENT_PRICES[type];
     const oldPrice = this.state.totalPrice;
-    const newPrice = oldPrice - priceDeduction;
+    const newPrice = oldPrice - priceDedution;
     this.setState( { totalPrice: newPrice, ingredients: updatedIngredients});
     this.updatePurchaseState(updatedIngredients);
 }
@@ -72,7 +72,7 @@ purchaseHandler = () => {
     this.setState({purchasing: true});
 }
 
-purchasableCancelHandler = () => {
+purchaseCancelHandler = () => {
     this.setState({purchasing: false});
 }
 
@@ -102,7 +102,7 @@ render() {
             <Burger ingredients={this.state.ingredients} />
             <BuildControls 
             ingredientAdded={this.addIngredientHandler}
-            ingredientRemoved={this.removeIngredient}
+            ingredientRemoved={this.removeIngredientHandler}
             disabled={disabledInfo}
             purchasable={this.state.purchasable}
             ordered={this.purchaseHandler}
